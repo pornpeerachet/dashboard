@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-database.js"></script>
+    <script src="script.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <title>Line Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <?!=include('script'); ?>
+
+    <?!=include('css')?>
+    <link rel="stylesheet" href="css/styles.css">
+
+  </head>
+  <body>
+    <div class="grid-container">
+
+
+      <!-- Sidebar -->
+      <aside id="sidebar">
+        <div class="sidebar-title">
+          <div class="sidebar-brand">
+            <span class="material-icons-outlined">inventory</span> Smart Farm Iot
+
+          </div>
+          <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+        </div>
+      
+        <ul class="sidebar-list">
+          <li class="sidebar-list-item">
+            <a href="#dashboard">
+              <span class="material-icons-outlined">dashboard</span> Dashboard
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="#historical">
+              <span class="material-icons-outlined">inventory_2</span> Historical
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="#control">
+              <span class="material-icons-outlined">fact_check</span> Control
+            </a>
+          </li>
+          
+        </ul>
+      </aside>
+      <!-- End Sidebar -->
+
+      <!-- Main -->
+      <main class="main-container" id="dashboard">
+        <div class="main-title">
+          <p class="font-weight-bold">DASHBOARD</p>
+        </div>
+        <div class="main-cards">
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">Air - Temperature</p>
+              <span class="material-icons-outlined text-red">thermostat</span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="air_temp1"></span>°C</div>
+          </div>
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">Soil -Temperature</p>
+              <span class="material-icons-outlined text-orange">local_fire_department</span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="soil_temp1"></span>°C</div>
+          </div>
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">Air - Humidity</p>
+              <span class="material-icons-outlined text-blue"> air</span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="air_humi1"></span>%RH</div>
+          </div>
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">Soil - Humidity</p>
+              <span class="material-icons-outlined text-green"> water_drop </span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="soil_humi1"></span>%RH</div>
+          </div>
+        </div>
+ 
+          <div class="main-cards">
+              <div class="card1">
+              <div class="card1-inner">
+                <p class="text-primary">Light</p>
+                <span class="material-icons-outlined text-blue">inventory_2</span>
+              </div>
+            <div class="text-primary font-weight-bold"><span id="light1"></span>Lux</div>
+            </div> 
+            <div class="card1">
+              <div class="card1-inner">
+                <p class="text-primary">PPFD</p>
+                <span class="material-icons-outlined text-orange">add_shopping_cart</span>
+              </div>
+            <div class="text-primary font-weight-bold"><span id="ppfd1"></span>μmol/m²/s</div>
+            </div>
+            <div class="card1">
+              <div class="card1-inner">
+                <p class="text-primary">Water Flow</p>
+                <span class="material-icons-outlined text-green">shopping_cart</span>
+              </div>
+            <div class="text-primary font-weight-bold"><span id="wflow1"></span>L/H</div>
+            </div>  
+            <div class="card1">
+              <div class="card1-inner">
+                <p class="text-primary">pH</p>
+                <span class="material-icons-outlined text-red">notification_important</span>
+              </div>
+            <div class="text-primary font-weight-bold"><span id="ph1"></span></div>
+            </div>
+          </div>
+
+          <div class="main-cards">
+          <div class="card2">
+            <div class="card-inner">
+              <p class="text-primary">Wind Speed</p>
+              <span class="material-icons-outlined text-orange">add_shopping_cart</span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="wind1"></span>m/s</div>
+          </div>
+          <div class="card2">
+            <div class="card-inner">
+              <p class="text-primary">Rain Water</p>
+              <span class="material-icons-outlined text-green">shopping_cart</span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="rain1"></span></div>
+          </div>  
+          <div class="card2">
+            <div class="card-inner">
+              <p class="text-primary">Time</p>
+              <span class="material-icons-outlined text-green">shopping_cart</span>
+            </div>
+            <div class="text-primary font-weight-bold"><span id="time1"></span></div>
+          </div>  
+          
+        </div>
+
+      </main>
+      <!-- End Main Dashboard -->
+
+        <!-- Historical Content -->      
+      <main class="main-container" id="historical"style="display: none;">
+        <div class="main-title">
+          <p class="font-weight-bold">Historical</p>
+        </div>
+        <script>
+          google.script.run.withSuccessHandler(drawChart).getData();
+        </script>
+        <div class="chart">
+          <div class="charts-card">
+            <h3 class="chart-title">  Air-Temperature</h3>
+            <div id="chart-air-temp"></div>
+          </div>
+          <div class="charts-card">          
+            <h3 class="chart-title">  Soil -Temperature</h3>
+            <div id="chart-soil-temp"></div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="charts-card">
+            <h3 class="chart-title">  Air - Humidity</h3>
+            <div id="chart-air-humi"></div>
+          </div>
+          <div class="charts-card">
+            <h3 class="chart-title">  Soil - Humidity</h3>
+            <div id="chart-soil-humi"></div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="charts-card">
+            <h3 class="chart-title">  Light</h3>
+            <div id="chart-light"></div>
+          </div>
+          <div class="charts-card">
+            <h3 class="chart-title">  PPFD</h3>
+            <div id="chart-ppfd"></div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="charts-card">
+            <h3 class="chart-title">  pH</h3>
+            <div id="chart-ph"></div>
+          </div>
+        </div>
+
+
+        <!-- End Historical Content -->
+      </main>
+
+        <!--  Control Content -->
+      <main class="main-container" id="control" style="display: none;">
+        <div class="main-title">
+        <p class="font-weight-bold">Control</p>
+        </div>
+          <div class="pump">	
+            <div class="valve">
+              <a class = "font1" >ปั๊มน้ำ 1</a>
+              <div class= "toggle-btn" id="unact">
+                <div class= "inner-circle">
+                </div>
+              </div>
+              <div class= "toggle-btn active" id="act" >
+                <div class= "inner-circle">
+                </div>
+              </div>
+            </div>
+            <div class="valve">
+              <a class = "font1" >ปั๊มน้ำ 2</a>
+              <div class= "toggle-btn1" id="unact1">
+                <div class= "inner-circle">   
+                </div>
+              </div>
+              <div class= "toggle-btn1 active" id="act1" >
+                <div class= "inner-circle">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pump1">	
+            <div class="valve1">
+              <a class = "font1" >วาล์วตัวที่ 1</a>
+              <div class= "toggle-btn2" id="unact2">
+                <div class= "inner-circle">
+                </div>
+              </div>
+              <div class= "toggle-btn2 active" id="act2" >
+                <div class= "inner-circle">
+                </div>
+              </div>
+            </div>
+            <div class="valve1">
+              <a class = "font1" >วาล์วตัวที่ 2</a>
+              <div class= "toggle-btn3" id="unact3">
+                <div class= "inner-circle">   
+                </div>
+              </div>
+              <div class= "toggle-btn3 active" id="act3" >
+                <div class= "inner-circle">
+                </div>
+              </div>
+            </div>
+            <div class="valve1">
+              <a class = "font1" >วาล์วตัวที่ 3</a>
+              <div class= "toggle-btn4" id="unact4">
+                <div class= "inner-circle">
+                </div>
+              </div>
+              <div class= "toggle-btn4 active" id="act4" >
+                <div class= "inner-circle">
+                </div>
+              </div>
+            </div>
+            <div class="valve1">
+              <a class = "font1" >วาล์วตัวที่ 4 </a>
+              <div class= "toggle-btn5" id="unact5">
+                <div class= "inner-circle">
+                </div>
+              </div>
+              <div class= "toggle-btn5 active" id="act5" >
+                <div class= "inner-circle">
+                </div>
+              </div>
+            </div>	
+          </div>
+          <div id="timer-container">
+            <div id="time-control">
+              <button id="increase">+</button>
+              <button id="decrease">-</button>
+              <input type="number" id="seconds" min="0" value="0"> วินาที
+              <button id="start">off</button>
+              <span id="countdown"></span>
+            </div>
+          
+            <div id="time-control-1">
+              <button id="increase-1">+</button>
+              <button id="decrease-1">-</button>
+              <input type="number" id="seconds-1" min="0" value="0"> วินาที
+              <button id="start-1">off</button>
+              <span id="countdown-1"></span>
+            </div>
+          
+            <div id="time-control-2">
+              <button id="increase-2">+</button>
+              <button id="decrease-2">-</button>
+              <input type="number" id="seconds-2" min="0" value="0"> วินาที
+              <button id="start-2">off</button>
+              <span id="countdown-2"></span>
+            </div>
+          
+            <div id="time-control-3">
+              <button id="increase-3">+</button>
+              <button id="decrease-3">-</button>
+              <input type="number" id="seconds-3" min="0" value="0"> วินาที
+              <button id="start-3">off</button>
+              <span id="countdown-3"></span>
+            </div>
+          </div>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/scripts.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"></script>
+  <?!=include('script')?>
+  </body>
+</html>
